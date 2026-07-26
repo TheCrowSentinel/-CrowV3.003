@@ -1,0 +1,101 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Crow Prototype API",
+    "version": "3.003"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.invalid/v3"
+    }
+  ],
+  "paths": {
+    "/transactions": {
+      "post": {
+        "summary": "Create a protected transaction record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "merchant_id",
+                  "order_id",
+                  "amount",
+                  "currency",
+                  "payment_token"
+                ],
+                "properties": {
+                  "merchant_id": {
+                    "type": "string"
+                  },
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "pattern": "^\\d+\\.\\d{2}$"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "example": "USD"
+                  },
+                  "payment_token": {
+                    "type": "string",
+                    "description": "Opaque provider token only"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Transaction created"
+          }
+        }
+      }
+    },
+    "/transactions/{transaction_id}": {
+      "get": {
+        "summary": "Read transaction state",
+        "parameters": [
+          {
+            "name": "transaction_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction state"
+          }
+        }
+      }
+    },
+    "/transactions/{transaction_id}/disputes": {
+      "post": {
+        "summary": "Open a dispute",
+        "parameters": [
+          {
+            "name": "transaction_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Dispute accepted for review"
+          }
+        }
+      }
+    }
+  }
+}

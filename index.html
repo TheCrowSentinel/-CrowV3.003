@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="description" content="Pay with Crow v3.003 — merchant payment mediation prototype." />
+  <title>Pay with Crow v3.003</title>
+  <link rel="icon" href="assets/crow-mark.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="networkCanvas" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Pay with Crow home">
+      <img src="assets/crow-mark.svg" alt="" width="44" height="44" />
+      <span>
+        <strong>PAY WITH CROW</strong>
+        <small>Confidence before commitment.</small>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
+      Menu
+    </button>
+
+    <nav id="siteNav" class="site-nav" aria-label="Primary navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#merchant">Merchants</a>
+      <a href="#security">Security</a>
+      <a href="#disputes">Disputes</a>
+      <button class="ghost-button" data-open-demo>Open Demo</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero section">
+      <div class="hero-copy">
+        <p class="eyebrow">MERCHANT PAYMENT MEDIATION • v3.003</p>
+        <h1>Buy with confidence.<br /><span>Sell with proof.</span></h1>
+        <p class="hero-text">
+          Crow coordinates a protected transaction workflow between buyers, sellers,
+          merchants, and regulated payment partners—without storing passwords,
+          seed phrases, card numbers, or private banking credentials.
+        </p>
+        <div class="hero-actions">
+          <button class="primary-button" data-open-demo>Pay with Crow</button>
+          <a class="secondary-button" href="#merchant">Merchant integration</a>
+        </div>
+        <div class="trust-row" aria-label="Prototype capabilities">
+          <span>✓ Responsive checkout</span>
+          <span>✓ Transaction states</span>
+          <span>✓ Dispute workflow</span>
+          <span>✓ Audit-event model</span>
+        </div>
+      </div>
+
+      <div class="hero-console" aria-label="Transaction status demonstration">
+        <div class="console-top">
+          <span class="status-dot"></span>
+          <span>CROW MEDIATION NODE</span>
+          <span class="console-version">3.003</span>
+        </div>
+
+        <div class="crow-core">
+          <div class="core-ring ring-one"></div>
+          <div class="core-ring ring-two"></div>
+          <img src="assets/crow-mark.svg" alt="Crow system mark" />
+        </div>
+
+        <div class="transaction-card">
+          <div>
+            <span class="label">TRANSACTION</span>
+            <strong>#CRW-33003</strong>
+          </div>
+          <div>
+            <span class="label">STATUS</span>
+            <strong class="status-text">PROTECTED</strong>
+          </div>
+          <div class="progress-track" aria-label="Transaction is at verification stage">
+            <span class="complete"></span>
+            <span class="complete"></span>
+            <span class="active"></span>
+            <span></span>
+          </div>
+          <div class="stage-labels">
+            <span>Authorized</span>
+            <span>Secured</span>
+            <span>Verify</span>
+            <span>Release</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section panel-section">
+      <div class="section-heading">
+        <p class="eyebrow">TRANSACTION LOGIC</p>
+        <h2>A clear state machine for every purchase.</h2>
+        <p>
+          Crow records what should happen next while the regulated payment provider
+          handles the movement and custody of funds.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <article>
+          <span class="step">01</span>
+          <h3>Authorize</h3>
+          <p>The buyer selects Pay with Crow and authorizes payment through an approved provider.</p>
+        </article>
+        <article>
+          <span class="step">02</span>
+          <h3>Secure</h3>
+          <p>The provider confirms the funding state. Crow stores only safe transaction references.</p>
+        </article>
+        <article>
+          <span class="step">03</span>
+          <h3>Verify</h3>
+          <p>Delivery, completion, or agreed transaction conditions are checked against evidence.</p>
+        </article>
+        <article>
+          <span class="step">04</span>
+          <h3>Release or review</h3>
+          <p>Eligible transactions move toward release. Conflicts enter a controlled dispute process.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="merchant" class="section merchant-section">
+      <div class="section-heading narrow">
+        <p class="eyebrow">MERCHANT CAPABILITIES</p>
+        <h2>Add Crow beside your existing payment choices.</h2>
+        <p>
+          v3.003 includes a demonstrational checkout button, merchant dashboard,
+          mock webhook events, and a documented integration boundary.
+        </p>
+      </div>
+
+      <div class="merchant-layout">
+        <div class="checkout-preview">
+          <div class="preview-window">
+            <div class="browser-bar"><span></span><span></span><span></span></div>
+            <div class="product-row">
+              <div class="product-placeholder">PRODUCT</div>
+              <div>
+                <strong>Merchant order</strong>
+                <p>Protected purchase demo</p>
+              </div>
+              <strong>$149.00</strong>
+            </div>
+            <button class="crow-pay-button" data-open-demo>
+              <img src="assets/crow-mark.svg" alt="" />
+              <span>Pay with Crow</span>
+            </button>
+            <div class="provider-list">
+              <span>Card</span><span>Bank</span><span>Wallet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-card">
+          <div class="code-header">
+            <span>Merchant button example</span>
+            <button id="copyCode">Copy</button>
+          </div>
+          <pre><code id="merchantCode">&lt;button
+  class="pay-with-crow"
+  data-merchant="MERCHANT_ID"
+  data-order="ORDER_ID"
+  data-amount="149.00"
+&gt;
+  Pay with Crow
+&lt;/button&gt;
+
+&lt;script src="/crow-checkout.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="security" class="section panel-section">
+      <div class="section-heading">
+        <p class="eyebrow">SECURITY BOUNDARIES</p>
+        <h2>Minimize sensitive data by design.</h2>
+      </div>
+
+      <div class="security-grid">
+        <article>
+          <h3>Never collect wallet secrets</h3>
+          <p>Seed phrases, private keys, recovery phrases, and raw banking credentials are rejected.</p>
+        </article>
+        <article>
+          <h3>Tokenized payment references</h3>
+          <p>The prototype models provider tokens and transaction IDs instead of storing card data.</p>
+        </article>
+        <article>
+          <h3>Least-privilege access</h3>
+          <p>Buyer, seller, merchant, reviewer, and administrator capabilities are separated.</p>
+        </article>
+        <article>
+          <h3>Immutable audit events</h3>
+          <p>Each material state change creates a timestamped event for later review.</p>
+        </article>
+        <article>
+          <h3>Human escalation</h3>
+          <p>Automation can organize evidence, but ambiguous or high-risk decisions require review.</p>
+        </article>
+        <article>
+          <h3>Prototype-safe operation</h3>
+          <p>This release simulates funds and is not a licensed custody, escrow, or banking service.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="disputes" class="section dispute-section">
+      <div class="section-heading narrow">
+        <p class="eyebrow">DISPUTE ENGINE</p>
+        <h2>Automate collection, not blind judgment.</h2>
+        <p>
+          v3.003 classifies disputes, pauses release, requests evidence, checks deadlines,
+          and recommends an outcome. Human review remains mandatory for uncertain cases.
+        </p>
+      </div>
+
+      <div class="decision-tree">
+        <div class="decision-node root-node">Dispute opened</div>
+        <div class="tree-line vertical"></div>
+        <div class="tree-branches">
+          <div>
+            <div class="decision-node">Evidence complete?</div>
+            <div class="tree-result good">Yes → evaluate rules</div>
+          </div>
+          <div>
+            <div class="decision-node">Evidence missing?</div>
+            <div class="tree-result warn">Request + deadline</div>
+          </div>
+          <div>
+            <div class="decision-node">High risk?</div>
+            <div class="tree-result danger">Escalate review</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section architecture-section">
+      <div class="section-heading">
+        <p class="eyebrow">V3.003 SYSTEM MAP</p>
+        <h2>Built as separate, replaceable layers.</h2>
+      </div>
+      <div class="architecture-map">
+        <span>Buyer UI</span>
+        <span>Merchant Plugin</span>
+        <span>Crow API</span>
+        <span>Risk Engine</span>
+        <span>Dispute Service</span>
+        <span>Audit Log</span>
+        <span>Payment Partner</span>
+        <span>Notifications</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <img src="assets/crow-mark.svg" alt="" width="36" height="36" />
+      <div><strong>Pay with Crow</strong><small>Prototype v3.003</small></div>
+    </div>
+    <p>
+      Demonstration software only. No real funds are held, transferred, released, or adjudicated.
+    </p>
+  </footer>
+
+  <dialog id="checkoutDialog" class="checkout-dialog">
+    <form method="dialog" class="dialog-shell" id="checkoutForm">
+      <button class="dialog-close" value="cancel" aria-label="Close checkout">×</button>
+
+      <div class="dialog-brand">
+        <img src="assets/crow-mark.svg" alt="" />
+        <div>
+          <strong>Pay with Crow</strong>
+          <small>Protected transaction demo</small>
+        </div>
+      </div>
+
+      <div id="checkoutSteps">
+        <section class="checkout-step active" data-step="1">
+          <p class="eyebrow">STEP 1 OF 4</p>
+          <h2>Review purchase</h2>
+          <div class="summary-box">
+            <div><span>Merchant</span><strong>Example Merchant</strong></div>
+            <div><span>Order</span><strong>#DEMO-33003</strong></div>
+            <div><span>Total</span><strong>$149.00</strong></div>
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="termsCheck" />
+            <span>I understand this demonstration does not process real money.</span>
+          </label>
+          <button type="button" class="primary-button full" data-next disabled>Continue</button>
+        </section>
+
+        <section class="checkout-step" data-step="2">
+          <p class="eyebrow">STEP 2 OF 4</p>
+          <h2>Select a funding route</h2>
+          <div class="funding-options">
+            <button type="button" data-funding="Bank account">Bank account <small>Provider token</small></button>
+            <button type="button" data-funding="Debit card">Debit card <small>Provider token</small></button>
+            <button type="button" data-funding="Digital wallet">Digital wallet <small>Provider token</small></button>
+          </div>
+        </section>
+
+        <section class="checkout-step" data-step="3">
+          <p class="eyebrow">STEP 3 OF 4</p>
+          <h2>Creating protected transaction</h2>
+          <div class="processing-orbit"><span></span></div>
+          <ul class="processing-list">
+            <li class="done">Merchant identity checked</li>
+            <li class="done">Funding reference tokenized</li>
+            <li class="done">Release rules recorded</li>
+            <li class="done">Audit event created</li>
+          </ul>
+          <button type="button" class="primary-button full" data-next>View status</button>
+        </section>
+
+        <section class="checkout-step" data-step="4">
+          <p class="eyebrow">TRANSACTION CREATED</p>
+          <h2>Purchase protected</h2>
+          <div class="success-mark">✓</div>
+          <p class="center-text">
+            Crow has simulated a protected transaction record. No funds were moved.
+          </p>
+          <div class="summary-box">
+            <div><span>Status</span><strong>Awaiting fulfillment</strong></div>
+            <div><span>Transaction</span><strong>#CRW-DEMO-33003</strong></div>
+          </div>
+          <button class="primary-button full" value="done">Finish demo</button>
+        </section>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

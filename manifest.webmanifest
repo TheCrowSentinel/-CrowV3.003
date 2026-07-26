@@ -1,0 +1,15 @@
+{
+  "name": "Pay with Crow v3.003",
+  "short_name": "Crow",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#030512",
+  "theme_color": "#050816",
+  "icons": [
+    {
+      "src": "assets/crow-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
